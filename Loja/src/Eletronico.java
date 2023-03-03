@@ -31,7 +31,7 @@ public class Eletronico extends Produto{
                 "marca='" + marca + '\'' +
                 ", modelo='" + modelo + '\'' +
                 ", nome='" + nome + '\'' +
-                ", preco=" + preco +
+                ", preço=" + preco +
                 '}';
     }
 }
