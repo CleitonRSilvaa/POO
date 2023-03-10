@@ -3,17 +3,17 @@ import java.math.BigDecimal;
 public class Engenheiro extends Funcionario{
 
   
-  private  String codigcoCrea;
+  private  String codigoCrea;
   private  String departamento;
   
-  public Engenheiro(String nome, BigDecimal salario, String codigo, String codigcoCrea, String departamento) {
+  public Engenheiro(String nome, BigDecimal salario, String codigo, String codigoCrea, String departamento) {
     super(nome, salario, codigo);
-    this.codigcoCrea = codigcoCrea;
+    this.codigoCrea = codigoCrea;
     this.departamento = departamento;
   }
 
   public String getCodigcoCrea() {
-    return codigcoCrea;
+    return codigoCrea;
   }
 
   public String getDepartamento() {
@@ -27,7 +27,7 @@ public class Engenheiro extends Funcionario{
   
   @Override
   public BigDecimal calcularSalario() {
-    return getSalario().multiply(new BigDecimal(0.5));
+    return getSalario().add(getSalario().multiply(new BigDecimal(0.5)));
   }  
   
 }
