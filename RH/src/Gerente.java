@@ -1,6 +1,6 @@
 import java.math.BigDecimal;
 
-public class Gerente extends Funcionario  {
+public class Gerente extends Funcionario implements Autenticavel  {
 
   private String area;
   private BigDecimal bonus;
@@ -20,6 +20,12 @@ public class Gerente extends Funcionario  {
   @Override
   public BigDecimal calcularSalario() {
     return this.getSalario().add (bonus) ;
+  }
+
+  @Override
+  public void autenticar() {
+    // TODO Auto-generated method stub
+    throw new UnsupportedOperationException("Unimplemented method 'autenticar'");
   }
 
    

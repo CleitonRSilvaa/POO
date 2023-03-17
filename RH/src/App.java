@@ -27,6 +27,15 @@ public class App {
         System.out.println("Salario total: "+ p.calcularSalario());
         System.out.println("Salario total: "+ e.calcularSalario());
         System.out.println("Salario total: "+ g.calcularSalario());
+
+        FolhaDePagamento folhaDePagamento = new FolhaDePagamento();
+        folhaDePagamento.registrar(p);
+        folhaDePagamento.registrar(g);
+        folhaDePagamento.registrar(e);
+
+        System.out.println(folhaDePagamento.getTotalFolhaDePagamento());
+
+
          
     }
 }
