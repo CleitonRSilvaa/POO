@@ -1,4 +1,4 @@
-public class Jogador {
+public abstract class Jogador {
   private String nome;
   private int xp = 0;
   private int hp = 100;
@@ -32,11 +32,6 @@ public class Jogador {
 
   public void receberAntidoto(){
     this.envenenado = !this.envenenado;
-      // if (this.envenenado) {
-      //     this.envenenado = false;
-      // }else {
-      //     this.envenenado = true;
-      // }
   }
 
   public int getXp() {
