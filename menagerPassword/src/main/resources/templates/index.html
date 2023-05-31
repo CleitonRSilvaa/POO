@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="pt-BR" xmlns:th="https://thymeleaf.org">
+<html lang="en" data-bs-theme="dark">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-9ndCyUaIbzAi2FUVXJi0CjmCapSmO7SnpJef0486qhLnuZ2cdeRhO02iuK6FUUVM" crossorigin="anonymous">
+  <link rel="stylesheet" href="..\css\styler.css">
+  
+
+  <title>Menager PassWord</title>
+</head>
+<body>
+
+ 
+
+    <nav class="py-2 bg-body-tertiary border-bottom">
+      <div class="container d-flex flex-wrap">
+        <ul class="nav me-auto">
+          <li class="nav-item"><a href="#" class="nav-link link-body-emphasis px-2 active" aria-current="page">Home</a></li>
+    
+        </ul>
+        <ul class="nav">
+          
+          <a href="/logout" class="btn btn-outline-danger">
+            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-box-arrow-right" viewBox="0 0 16 16">
+<path fill-rule="evenodd" d="M10 12.5a.5.5 0 0 1-.5.5h-8a.5.5 0 0 1-.5-.5v-9a.5.5 0 0 1 .5-.5h8a.5.5 0 0 1 .5.5v2a.5.5 0 0 0 1 0v-2A1.5 1.5 0 0 0 9.5 2h-8A1.5 1.5 0 0 0 0 3.5v9A1.5 1.5 0 0 0 1.5 14h8a1.5 1.5 0 0 0 1.5-1.5v-2a.5.5 0 0 0-1 0v2z"></path>
+<path fill-rule="evenodd" d="M15.854 8.354a.5.5 0 0 0 0-.708l-3-3a.5.5 0 0 0-.708.708L14.293 7.5H5.5a.5.5 0 0 0 0 1h8.793l-2.147 2.146a.5.5 0 0 0 .708.708l3-3z"></path>
+</svg>
+            Sair
+</a>
+        </ul>
+      </div>
+    </nav>
+    <div class="col-md-12">
+      
+      <button id="btnNovaSenha" type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal" data-bs-whatever="@mdo">Registrar nova senha</button>
+    </div>
+    <div class="custon-container">
+     
+  
+    <div class="card text-center" style="width: 18rem;" th:each="senha : ${listaSenhas}">
+      <div class="card-body">
+        <h5 class="card-title"th:text="${senha.nome}"></h5>
+        <div class="input-group mb-3">
+          <input type="password" class="form-control" placeholder="Recipient's username" aria-label="Recipient's username" aria-describedby="button-addon2"th:value="${senha.senha}">
+          <button class="btn btn-outline-secondary" type="button" id="button-addon2" onClick="toggleVisibility(this)"><span class="material-icons">
+            visibility
+            </span></button>
+        </div>
+        <form action="/senha" method="POST">
+          <input type="hidden" name="_csrf" th:value="${_csrf.token}">
+          <input type="hidden" name="_method" value="DELETE" />
+          <input type="hidden" name="id" th:value="${senha.id}">
+          <button class="btn btn-sm red" type="submit"><span class="material-icons">delete</span></button>
+        </form>
+           
+      </div>
+    </div>
+
+
+  </div>
+
+
+<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h1 class="modal-title fs-5" id="exampleModalLabel">Nova Senha</h1>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <form action="/senha" method="post">
+          <input type="hidden" name="_csrf" th:value="${_csrf.token}" >
+          <div class="mb-3">
+            <label for="recipient-name" class="col-form-label">Nome:</label>
+            <input type="text" name="nome" class="form-control" id="nome" required>
+          </div>
+          <label for="message-text" class="col-form-label">Senha:</label>
+          <div class="input-group mb-3">
+            <input name = "senha" id = "senha" type="password" class="form-control" placeholder="Recipient's username" aria-label="Recipient's username" aria-describedby="button-addon3"required>
+            <button class="btn btn-outline-secondary" type="button" id="button-addon3" onClick="toggleVisibility(this)"><span class="material-icons">
+              visibility
+              </span></button>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+            <button type="submit" class="btn btn-success">Salvar</button>
+          </div>
+        </form>
+      </div>
+      
+    </div>
+  </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+<span th:if="${mensagem != null}">
+  <script th:inline="javascript">
+    Swal.fire({
+      position: 'top-end',
+      icon: 'success',
+      title: /*[[${mensagem}]]*/,
+      showConfirmButton: false,
+      timer: 1700
+    });
+  </script>
+</span>
+
+
+
+
+
+<script>
+  var mensagem = document.getElementById('mensagem').textContent;
+
+  // Verificando se a mensagem não é nula ou vazia
+  if (mensagem) {
+    mensagem
+    // Executar código JavaScript com a mensagem
+    console.log('Mensagem:', mensagem);
+    // ... faça qualquer outra coisa com a mensagem
+  }
+  function toggleVisibility(button) {
+    let passwordInput = button.previousElementSibling;
+    let visibilityIcon = button.querySelector('.material-icons');
+
+    if (passwordInput.type === 'password') {
+      passwordInput.type = 'text';
+      visibilityIcon.textContent = 'visibility_off';
+    } else {
+      passwordInput.type = 'password';
+      visibilityIcon.textContent = 'visibility';
+    }
+  }
+</script>
+
+
+
+
+
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-geWF76RCwLtnZ8qwWowPQNguL3RmwHVBC9FhGdlKrxdiJJigb/j/68SIy3Te4Bkz" crossorigin="anonymous"></script>
+
+</body>
+</html>
